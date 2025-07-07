@@ -1,0 +1,5 @@
+backup_workflow/workflow_extensions.xml
+target/
+.DS_Store
+CLAUDE.md
+.vscode/
