@@ -90,43 +90,37 @@ Update the workflow extension configuration in `workflow_definition/workflow_ext
 
 ### 2. WSO2 API Manager Registry Configuration
 
-#### Method 1: File System Configuration
-
 1. Copy the JAR file to WSO2 API Manager:
    ```bash
    cp lifecycle/target/promote-workflows-1.0-SNAPSHOT.jar <APIM_HOME>/repository/components/lib/
    ```
 
-2. Update `<APIM_HOME>/repository/conf/api-manager.xml` to include your workflow configuration.
+2. Configure workflows through the WSO2 registry:
 
-#### Method 2: Registry Configuration (Recommended for Multi-Tenant)
+   a. **Access Management Console:**
+      - Navigate to `https://<Server Host>:9443/carbon`
+      - Sign in with administrator credentials
 
-For production and multi-tenant environments, configure workflows through the WSO2 registry:
+   b. **Navigate to Workflow Extensions:**
+      - Go to **Resources** → **Browse**
+      - Navigate to `/_system/governance/apimgt/applicationdata/workflow-extensions.xml`
 
-1. **Access Management Console:**
-   - Navigate to `https://<Server Host>:9443/carbon`
-   - Sign in with administrator credentials
+   c. **Configure Custom Workflow:**
+      - Click **Edit as text**
+      - Replace the default `APIStateChange` configuration with:
 
-2. **Navigate to Workflow Extensions:**
-   - Go to **Resources** → **Browse**
-   - Navigate to `/_system/governance/apimgt/applicationdata/workflow-extensions.xml`
+      ```xml
+      <APIStateChange executor="com.example.wso2.PromoteWorkflowExecutor">
+         <Property name="githubToken">YOUR_GITHUB_TOKEN</Property>
+         <Property name="githubOwner">YOUR_GITHUB_USERNAME</Property>
+         <Property name="githubRepo">YOUR_REPOSITORY_NAME</Property>
+         <Property name="workflowFileName">YOUR_WORKFLOW_FILE.yml</Property>
+      </APIStateChange>
+      ```
 
-3. **Configure Custom Workflow:**
-   - Click **Edit as text**
-   - Replace the default `APIStateChange` configuration with:
-
-   ```xml
-   <APIStateChange executor="com.example.wso2.PromoteWorkflowExecutor">
-       <Property name="githubToken">YOUR_GITHUB_TOKEN</Property>
-       <Property name="githubOwner">YOUR_GITHUB_USERNAME</Property>
-       <Property name="githubRepo">YOUR_REPOSITORY_NAME</Property>
-       <Property name="workflowFileName">YOUR_WORKFLOW_FILE.yml</Property>
-   </APIStateChange>
-   ```
-
-4. **Save and Restart:**
-   - Save the configuration
-   - Restart the WSO2 API Manager server
+   d. **Save and Restart:**
+      - Save the configuration
+      - Restart the WSO2 API Manager server
 
 ### 3. Lifecycle Configuration
 
