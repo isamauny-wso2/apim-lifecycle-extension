@@ -16,7 +16,7 @@ This project implements a custom workflow executor that extends `APIStateChangeS
 ## Technology Stack
 
 - **Java 1.8** with Maven build system
-- **WSO2 API Manager 9.29.119** framework
+- **WSO2 API Manager 4.x (this was tested with 4.5)
 - **JUnit 4.11** for testing
 - **Apache HTTP Client** for GitHub API integration
 
@@ -42,7 +42,7 @@ lifecycle_demo/
 
 - Java 1.8 or higher
 - Maven 3.6+
-- WSO2 API Manager 9.29.119
+- WSO2 API Manager 4.x (this was tested with 4.5)
 - Access to GitHub repository for workflow triggers
 
 ### Building the Project
@@ -71,18 +71,8 @@ The build creates: `target/promote-workflows-1.0-SNAPSHOT.jar`
 
 ### 1. GitHub Configuration
 
-Update the workflow extension configuration in `workflow_definition/workflow_extensions.xml`:
+Connection to Github requires the following information:
 
-```xml
-<APIStateChange executor="com.example.wso2.PromoteWorkflowExecutor">
-    <Property name="githubToken">YOUR_GITHUB_TOKEN</Property>
-    <Property name="githubOwner">YOUR_GITHUB_USERNAME</Property>
-    <Property name="githubRepo">YOUR_REPOSITORY_NAME</Property>
-    <Property name="workflowFileName">YOUR_WORKFLOW_FILE.yml</Property>
-</APIStateChange>
-```
-
-**Configuration Properties:**
 - `githubToken`: GitHub Personal Access Token with `repo` and `actions` scopes
 - `githubOwner`: GitHub username or organization name
 - `githubRepo`: Repository name containing the workflow
