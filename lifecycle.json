@@ -1,0 +1,125 @@
+{
+    "LifeCycle": {
+        "States": [
+            {
+                "Transitions": [
+                    {
+                        "Target": "Published",
+                        "Event": "Publish"
+                    },
+                    {
+                        "Target": "Changes-Requested",
+                        "Event": "Request Changes"
+                    }
+                ],
+                "State": "Promoted"
+            },
+            {
+                "Transitions": [
+                    {
+                        "Target": "Published",
+                        "Event": "Publish"
+                    }
+                ],
+                "State": "Changes-Requested",
+                
+                "CheckItems": [
+                    "Issues found during build must be fixed",
+                    "API must pass governance rules"
+                ]
+            },
+            {
+                "Transitions": [
+                    {
+                        "Target": "Published",
+                        "Event": "Publish"
+                    },
+                    {
+                        "Target": "Pre-Released",
+                        "Event": "Pre-Release"
+                    }
+                ],
+                "State": "Created",
+                "CheckItems": [
+                    "Deprecate old versions after publishing the API",
+                    "Requires re-subscription when publishing the API"
+                ]
+            },
+            {
+                "Transitions": [
+                    {
+                        "Target": "Published",
+                        "Event": "Publish"
+                    },
+                    {
+                        "Target": "Created",
+                        "Event": "Demote to Created"
+                    },
+                    {
+                        "Target": "Pre-Released",
+                        "Event": "Pre-Release"
+                    }
+                ],
+                "State": "Pre-Released",
+                "CheckItems": [
+                    "Deprecate old versions after publishing the API",
+                    "Requires re-subscription when publishing the API"
+                ]
+            },
+            {
+                "Transitions": [
+                    {
+                        "Target": "Blocked",
+                        "Event": "Block"
+                    },
+                    {
+                        "Target": "Pre-Released",
+                        "Event": "Pre-Release"
+                    },
+                    {
+                        "Target": "Created",
+                        "Event": "Demote to Created"
+                    },
+                    {
+                        "Target": "Deprecated",
+                        "Event": "Deprecate"
+                    },
+                    {
+                        "Target": "Published",
+                        "Event": "Publish"
+                    },
+                    {
+                        "Target": "Promoted",
+                        "Event": "Promote"
+                    }
+                ],
+                "State": "Published"
+            },
+            {
+                "Transitions": [
+                    {
+                        "Target": "Deprecated",
+                        "Event": "Deprecate"
+                    },
+                    {
+                        "Target": "Published",
+                        "Event": "Re-Publish"
+                    }
+                ],
+                "State": "Blocked"
+            },
+            {
+                "Transitions": [
+                    {
+                        "Target": "Retired",
+                        "Event": "Retire"
+                    }
+                ],
+                "State": "Deprecated"
+            },
+            {
+                "State": "Retired"
+            }
+        ]
+    }
+}
